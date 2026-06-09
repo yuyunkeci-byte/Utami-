@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BK Klasikal Workspace - Edisi Offline Praktis</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet font">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-area {
+                border: none !important;
+                box-shadow: none !important;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                color: black !important;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rose: {
+                            450: '#f472b6',
+                            650: '#be185d',
+                            750: '#9d174d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-rose-50/25 min-h-screen flex flex-col antialiased selection:bg-rose-200">
+
+    <!-- 1. HEADER / NAVBAR -->
+    <header class="sticky top-0 bg-white/95 backdrop-blur-md border-b border-rose-100/80 z-50 px-4 py-3 shadow-xs no-print">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <span class="p-2 bg-gradient-to-tr from-pink-500 to-rose-500 rounded-xl text-white shadow-xs flex items-center justify-center animate-pulse">
+                    <i data-lucide="file-spreadsheet" class="w-5 h-5"></i>
+                </span>
+                <div>
+                    <span class="font-extrabold text-slate-800 text-sm tracking-tight flex items-center gap-1.5 leading-none">
+                        BK Klasikal <span class="text-[10px] bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded font-extrabold tracking-wide uppercase">Workspace Offline</span>
+                    </span>
+                    <p class="text-[10px] text-slate-400 mt-0.5 font-medium">Asisten Layanan Bimbingan Klasikal Guru BK (Siap Pakai Tanpa Internet)</p>
+                </div>
+            </div>
+
+            <!-- Tab Buttons Desktop -->
+            <nav class="hidden md:flex items-center gap-1.5 text-xs font-bold text-slate-600">
+                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer bg-rose-50 text-rose-700 font-extrabold">
+                    <i data-lucide="home" class="w-4 h-4"></i> Dasbor Utama
+                </button>
+                <button onclick="switchTab('rpl')" id="tab-rpl" class="tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer hover:bg-slate-50">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Pembuat RPL
+                </button>
+                <button onclick="switchTab('materi')" id="tab-materi" class="tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer hover:bg-slate-50">
+                    <i data-lucide="book-open" class="w-4 h-4"></i> Materi Ringkas
+                </button>
+                <button onclick="switchTab('icebreaker')" id="tab-icebreaker" class="tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer hover:bg-slate-50">
+                    <i data-lucide="flame" class="w-4 h-4"></i> Icebreakers
+                </button>
+                <button onclick="switchTab('asesmen')" id="tab-asesmen" class="tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer hover:bg-slate-50">
+                    <i data-lucide="clipboard" class="w-4 h-4"></i> Instrumen Asesmen
+                </button>
+            </nav>
+
+            <!-- Status Badge -->
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-extrabold text-rose-700 bg-rose-50 border border-rose-100/70 rounded-full">
+                    <span class="w-1.5 h-1.5 bg-rose-500 rounded-full animate-ping"></span> Standalone Offline
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN WRAPPER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 no-print">
+
+        <!-- TAB: DASHBOARD -->
+        <section id="content-dashboard" class="tab-content space-y-6 animate-fade">
+            <!-- Hero Banner -->
+            <div class="p-6 md:p-8 bg-gradient-to-r from-rose-500 via-pink-400 to-rose-450 rounded-2xl text-white shadow-sm relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 top-0 w-1/3 opacity-10 pointer-events-none">
+                    <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0,100 C30,40 70,60 100,0 L100,100 Z" fill="white" />
+                    </svg>
+                </div>
+                <div class="max-w-2xl relative z-10 space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/20 rounded-full border border-white/35 text-[10px] font-semibold tracking-wide">
+                        <i data-lucide="sparkles" class="w-3 h-3"></i> PENYUSUN INSTAN EDISI GURU MANDIRI
+                    </div>
+                    <h1 class="text-2xl md:text-3.5xl font-extrabold tracking-tight">Focus & Empati dalam Sentuhan Praktis</h1>
+                    <p class="text-rose-50/90 text-xs md:text-sm leading-relaxed max-w-xl">
+                        Selamat datang di BK Klasikal Workspace! Dirancang khusus dalam tema feminim yang lembut, estetik, dan responsif. Cocok disimpan langsung ke flashdisk atau desktop untuk bimbingan klasikal harian yang rapi dan efisien.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Library of Topics (Pustaka Cepat) -->
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-5 h-5 text-rose-500"></i> Pilih Topik Layanan Populer
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1">Gunakan template topik berikut untuk mengisi formulir bimbingan klasikal secara otomatis secara lokal.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Tema 1 -->
+                    <div onclick="applyQuickTopic('Manajemen Waktu Belajar Efektif', 'Belajar', 'Membantu siswa menyusun skala prioritas dalam pembagian waktu belajar dan istirahat harian.', 'Siswa mampu menunjukkan disiplin waktu, mengurangi prokrastinasi, dan menyeimbangkan aktivitas akademis.')" class="p-4 bg-white border border-rose-100 hover:border-rose-300 rounded-xl shadow-xs hover:shadow-md transition-all cursor-pointer space-y-3 group text-xs text-slate-600">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-blue-50 text-blue-700">Belajar</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm group-hover:text-rose-600 transition-colors">Manajemen Waktu Belajar</h4>
+                        <p class="text-slate-500 leading-relaxed truncate">Skala prioritas belajar dan hobi produktif.</p>
+                    </div>
+
+                    <!-- Tema 2 -->
+                    <div onclick="applyQuickTopic('Komunikasi Asertif Bebas Bullying', 'Sosial', 'Melatih siswa menyampaikan opini dengan sopan dan menentang perundungan verbal secara asertif.', 'Siswa mampu melatih emosi asertif, berteman secara inklusif, dan peduli sesama.')" class="p-4 bg-white border border-rose-100 hover:border-rose-300 rounded-xl shadow-xs hover:shadow-md transition-all cursor-pointer space-y-3 group text-xs text-slate-600">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-orange-50 text-orange-700">Sosial</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm group-hover:text-rose-600 transition-colors">Komunikasi Sosial Asertif</h4>
+                        <p class="text-slate-500 leading-relaxed truncate">Pertemanan positif tanpa perundungan.</p>
+                    </div>
+
+                    <!-- Tema 3 -->
+                    <div onclick="applyQuickTopic('Kenali Potensi & Minat Bakat Diri', 'Karir', 'Menuntun siswa mengidentifikasi kecerdasan majemuk dan arah karir masa depan sejak sekolah.', 'Siswa memahami minat akademis dan non-akademis serta pilihan studi lanjut.')" class="p-4 bg-white border border-rose-100 hover:border-rose-300 rounded-xl shadow-xs hover:shadow-md transition-all cursor-pointer space-y-3 group text-xs text-slate-600">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-rose-50 text-rose-750">Karir</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-300 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm group-hover:text-rose-600 transition-colors">Eksplorasi Minat & Karir</h4>
+                        <p class="text-slate-500 leading-relaxed truncate">Uji keunikan bakat dan profesi masa depan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: RPL GENERATOR -->
+        <section id="content-rpl" class="tab-content hidden space-y-6 animate-fade">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Left Control Form -->
+                <div class="w-full lg:w-5/12 bg-white rounded-xl border border-rose-100 p-5 shadow-xs space-y-4">
+                    <div class="border-b border-rose-50 pb-3 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-md font-bold text-slate-800 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-5 h-5 text-rose-500"></i> Buat RPL 1 Lembar
+                            </h2>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Isi detail di bawah untuk merancang RPL siap cetak.</p>
+                        </div>
+                    </div>
+
+                    <!-- Template Management Box -->
+                    <div class="p-3 bg-rose-550/10 bg-rose-50/40 border border-rose-100 rounded-xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+                                <i data-lucide="bookmark" class="w-3.5 h-3.5 text-rose-500"></i> Simpan / Pilih Template
+                            </span>
+                        </div>
+                        <!-- Saved Lists -->
+                        <div id="template-list-container" class="flex flex-wrap gap-1">
+                            <!-- Populated via Javascript dynamically -->
+                        </div>
+                        <!-- New Save Action -->
+                        <div id="save-new-tpl" class="flex gap-1.5 pt-1.5 border-t border-rose-100/50">
+                            <input id="input-tpl-name" type="text" placeholder="Simpan form aktif sebagai template..." class="flex-1 p-1 px-2 border border-slate-205 rounded text-[10px] bg-white focus:outline-none focus:ring-1 focus:ring-rose-450">
+                            <button onclick="saveActiveFormAsTemplate()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold text-[10px] px-2.5 py-1 rounded transition-colors inline-flex items-center gap-0.5">
+                                <i data-lucide="plus" class="w-3 h-3"></i> Simpan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main RPL Form -->
+                    <div id="rpl-form" class="space-y-3.5 text-xs text-slate-700">
+                        <div>
+                            <label class="block font-bold text-slate-800 mb-1">Nama / Satuan Sekolah</label>
+                            <input id="rpl-sekolah" type="text" value="SMP Negeri 1 Jakarta" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block font-bold text-slate-800 mb-1">Kelas bimbingan</label>
+                                <input id="rpl-kelas" type="text" value="Kelas VIII" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-800 mb-1">Semester</label>
+                                <input id="rpl-semester" type="text" value="Ganjil" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block font-bold text-slate-800 mb-1">Bidang Layanan</label>
+                                <select id="rpl-bidang" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-white">
+                                    <option value="Pribadi">Pribadi</option>
+                                    <option value="Sosial" selected>Sosial</option>
+                                    <option value="Belajar">Belajar</option>
+                                    <option value="Karir">Karir</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-800 mb-1">Estimasi Alokasi Waktu</label>
+                                <input id="rpl-waktu" type="text" value="1 JP (40 Menit)" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-800 mb-1">Topik Utama atau Tema Layanan</label>
+                            <textarea id="rpl-topik" rows="2" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50" placeholder="Contoh: Pembentukan Jati Diri Digital yang Positif"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-800 mb-1">Metode Layanan</label>
+                            <input id="rpl-metode" type="text" value="Diskusi & Tanya Jawab Interaktif" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-800 mb-1">Alat & Media Utama</label>
+                            <input id="rpl-media" type="text" value="Lembar Kerja Siswa, Papan Tulis, Laptop" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-400 focus:outline-none bg-slate-50/50">
+                        </div>
+                        <button onclick="compileRplDoc()" class="w-full py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-extrabold tracking-wide rounded-lg shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i> Susun Draf RPL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Live Preview Panel -->
+                <div class="flex-1 space-y-4">
+                    <!-- Actions -->
+                    <div class="bg-slate-900 rounded-xl p-3 flex items-center justify-between text-white text-xs">
+                        <div class="flex items-center gap-1">
+                            <span class="bg-rose-500 px-1.5 py-0.5 rounded text-[9px] font-extrabold">PRINTPREVIEW</span>
+                            <span class="font-semibold text-slate-300">Format Resmi BK Klasikal</span>
+                        </div>
+                        <button onclick="window.print()" class="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded font-bold cursor-pointer transition-colors inline-flex items-center gap-1">
+                            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak Sekarang
+                        </button>
+                    </div>
+
+                    <!-- Paper Document Render block -->
+                    <div id="rpl-preview-paper" class="bg-white border border-slate-350 shadow-md rounded-xl p-8 max-w-[21cm] mx-auto space-y-5 print-area text-slate-800 text-xs text-justify">
+                        <!-- Kop/Title -->
+                        <div class="text-center border-b-2 border-slate-800 pb-3 space-y-1">
+                            <h2 class="text-sm font-extrabold tracking-wider uppercase">RENCANA PELAKSANAAN LAYANAN (RPL)</h2>
+                            <h3 class="text-xs font-bold uppercase tracking-wide">BIMBINGAN KLASIKAL</h3>
+                            <p class="text-[10px] text-slate-500 font-medium">Layanan Bimbingan Konseling - <span id="view-header-sekolah" class="font-bold">SMP Negeri 1 Jakarta</span></p>
+                        </div>
+
+                        <!-- Param List Grid -->
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-1.5 border border-slate-305 p-3 rounded bg-slate-50/50 leading-relaxed text-[11px]">
+                            <div><span class="font-bold">Satuan Pendidikan:</span> <span id="view-sekolah">SMP Negeri 1 Jakarta</span></div>
+                            <div><span class="font-bold">Kelas / Semester:</span> <span id="view-kelas-sem">Kelas VIII / Ganjil</span></div>
+                            <div><span class="font-bold">Bidang Layanan:</span> <span id="view-bidang">Sosial</span></div>
+                            <div><span class="font-bold">Estimasi Waktu:</span> <span id="view-waktu">1 JP (40 Menit)</span></div>
+                            <div class="col-span-2"><span class="font-bold">Topik / Tema:</span> <span id="view-topik" class="font-semibold text-slate-900 underline decoration-rose-300">Pentingnya Menjaga Sopan Santun Sosial</span></div>
+                            <div><span class="font-bold">Metode Layanan:</span> <span id="view-metode">Diskusi & Tanya Jawab Interaktif</span></div>
+                            <div><span class="font-bold">Media pendukung:</span> <span id="view-media">Laptop & Papan Tulis</span></div>
+                        </div>
+
+                        <!-- Bagian A: Tujuan -->
+                        <div class="space-y-1">
+                            <h4 class="bg-slate-100/90 text-slate-900 py-1 px-2 font-bold text-[11px] border-l-4 border-rose-500 uppercase">A. TUJUAN LAYANAN</h4>
+                            <div class="pl-2 space-y-1 leading-relaxed">
+                                <p class="font-semibold">1. Tujuan Umum:</p>
+                                <p class="text-slate-650 pl-4 list-decimal" id="view-tujuan-umum">Siswa memahami prinsip etika komunikasi sosial dan mengevaluasi hambatan asertivitas guna membangun relasi sebaya yang kondusif, harmonis, dan fungsional di lingkungan belajar.</p>
+                                <p class="font-semibold">2. Tujuan Khusus:</p>
+                                <ul class="list-disc pl-8 space-y-0.5" id="view-tujuan-khusus">
+                                    <li>Siswa mengidentifikasi 3 batasan perilaku asertif vs pasif.</li>
+                                    <li>Siswa menyusun naskah pertemanan sehat bebas gosip.</li>
+                                    <li>Siswa mengekspresikan penolakan halus terhadap bujukan negatif kelompok sebaya.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Bagian B: Langkah Kegiatan -->
+                        <div class="space-y-1">
+                            <h4 class="bg-slate-100/90 text-slate-900 py-1 px-2 font-bold text-[11px] border-l-4 border-rose-500 uppercase">B. LANGKAH-LANGKAH KEGIATAN</h4>
+                            <div class="pl-2 space-y-1.5 leading-relaxed">
+                                <p><span class="font-bold">1. Tahap Pendahuluan / Mulai (10 Menit):</span></p>
+                                <ul class="list-disc pl-6 space-y-0.5" id="view-keg-awal">
+                                    <li>Guru BK membuka kelas dengan salam penuh kehangatan, berdoa bersama, dan menetapkan kesepakatan belajar singkat.</li>
+                                    <li>Melakukan asesmen awal diagnostik visual seputar pola pertemanan yang nyaman dan kurang nyaman.</li>
+                                    <li>Menjelaskan tujuan utama bimbingan hari ini dan cakupan topik emosional sosial.</li>
+                                </ul>
+                                <p><span class="font-bold">2. Tahap Inti / Kegiatan Utama (20 Menit):</span></p>
+                                <ul class="list-disc pl-6 space-y-0.5" id="view-keg-inti">
+                                    <li>Guru memberikan studi kasus fiktif tentang dinamika pertemanan yang memicu kesalahpahaman.</li>
+                                    <li>Siswa berkelompok (3-4 orang) berdiskusi merumuskan kalimat penolakan asertif tanpa menyakiti perasaan teman.</li>
+                                    <li>Setiap juru bicara kelompok mensimulasikan diskusi penyelesaian konflik di depan kelas secara saksama.</li>
+                                </ul>
+                                <p><span class="font-bold">3. Tahap Penutup / Refleksi Akhir (10 Menit):</span></p>
+                                <ul class="list-disc pl-6 space-y-0.5" id="view-keg-akhir">
+                                    <li>Guru BK memandu penyimpulan materi pelajaran bimbingan secara kolaboratif.</li>
+                                    <li>Siswa menuliskan satu perbaikan perilaku sosial yang akan dilakukan esok hari di papan refleksi digital/lokal.</li>
+                                    <li>Menutup bimbingan konseling dengan apresiasi empati kepada semua siswa hebat di kelas.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Bagian C: Evaluasi -->
+                        <div class="space-y-1">
+                            <h4 class="bg-slate-100/90 text-slate-900 py-1 px-2 font-bold text-[11px] border-l-4 border-rose-500 uppercase">C. EVALUASI DAN TINDAK LANJUT</h4>
+                            <div class="pl-2 space-y-1 leading-relaxed">
+                                <p><span class="font-semibold">1. Evaluasi Proses:</span> Guru BK memantau kesungguhan, sikap empati pendengar kelompok, dan keaktivan siswa mengeksplorasi poin studi kasus selama pertemuan berlangsung.</p>
+                                <p><span class="font-semibold">2. Evaluasi Hasil:</span> <span id="view-eval-hasil">Menggunakan instrumen kuesioner skala Likert untuk mengukur skor keyakinan asertivitas siswa sebelum dan sesudah intervensi klasikal selesai secara saksama.</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Tanda Tangan -->
+                        <div class="grid grid-cols-2 pt-6 text-[10px] items-center text-center">
+                            <div>
+                                <p>Mengetahui,</p>
+                                <p class="font-bold">Kepala Sekolah SMP</p>
+                                <div class="h-10"></div>
+                                <p class="underline font-semibold text-slate-800">Nama Kepala Sekolah, M.Pd.</p>
+                                <p class="text-slate-500">NIP. 19800101 200501 1001</p>
+                            </div>
+                            <div>
+                                <p>Jakarta, 2026</p>
+                                <p class="font-bold">Guru Bimbingan Konseling</p>
+                                <div class="h-10"></div>
+                                <p class="underline font-semibold text-slate-800">Nama Guru BK, S.Psi.</p>
+                                <p class="text-slate-500">NIP. 19930720 202001 2002</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: MATERI RINGKAS -->
+        <section id="content-materi" class="tab-content hidden space-y-6 animate-fade">
+            <div class="bg-white border border-rose-100 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row gap-6">
+                <div class="w-full md:w-1/3 space-y-3 text-xs text-slate-605">
+                    <span class="inline-flex items-center gap-1 p-1 bg-rose-50 rounded-lg text-rose-700 font-extrabold text-[10px] uppercase">
+                        <i data-lucide="book" class="w-3.5 h-3.5"></i> Pembuat Handout
+                    </span>
+                    <h3 class="text-md font-bold text-slate-800">Materi Layanan & Tip Konseling</h3>
+                    <p class="text-slate-500 leading-relaxed">Tekan tombbol di samping untuk menampilkan poin materi interaktif bertema feminim yang mudah dipelajari siswa.</p>
+                    <div class="space-y-2 pt-2 border-t border-rose-50">
+                        <button onclick="changeSlide(0)" class="w-full text-left p-2.5 rounded border border-rose-50 hover:bg-rose-50/50 flex items-center justify-between font-semibold">
+                            <span>Slide 1: Pengantar Empati</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-rose-450"></i>
+                        </button>
+                        <button onclick="changeSlide(1)" class="w-full text-left p-2.5 rounded border border-rose-50 hover:bg-rose-50/50 flex items-center justify-between font-semibold">
+                            <span>Slide 2: Konsep Asertivitas</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-rose-450"></i>
+                        </button>
+                        <button onclick="changeSlide(2)" class="w-full text-left p-2.5 rounded border border-rose-50 hover:bg-rose-50/50 flex items-center justify-between font-semibold">
+                            <span>Slide 3: Langkah Tindakan</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-rose-450"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slide Canvas Screen mockup -->
+                <div class="flex-1 bg-gradient-to-br from-pink-500 via-rose-500 to-rose-600 rounded-xl p-8 text-white min-h-[300px] flex flex-col justify-between relative shadow-sm">
+                    <div class="flex justify-between items-center text-[11px] opacity-80">
+                        <span class="font-bold uppercase tracking-wider font-display flex items-center gap-1">
+                            <i data-lucide="play-circle" class="w-3.5 h-3.5"></i> Slide Presentasi Kelas
+                        </span>
+                        <span id="slide-num">Halaman 1 / 3</span>
+                    </div>
+
+                    <div id="slide-core" class="space-y-4 my-auto">
+                        <h2 id="slide-title" class="text-2xl font-extrabold tracking-tight font-display mb-1.5 leading-tight">Pengantar Hubungan Interpersonal Berempati</h2>
+                        <p id="slide-desc" class="text-sm text-pink-50/90 leading-relaxed">Membangun harmoni di lingkungan belajar merupakan bekal penting perkembangan remaja. Hubungan asertif mendukung terciptanya keterbukaan pikiran tanpa mengorbankan martabat satu sama lain.</p>
+                    </div>
+
+                    <div class="border-t border-pink-400/40 pt-4 flex justify-between items-center text-[10px]">
+                        <span>BK Klasikal Workspace - Offline</span>
+                        <div class="flex items-center gap-1.5 font-bold">
+                            <button onclick="prevSlide()" class="p-1.5 bg-white/20 hover:bg-white/30 rounded cursor-pointer transition-colors">Sebelumnya</button>
+                            <button onclick="nextSlide()" class="p-1.5 bg-white/20 hover:bg-white/30 rounded cursor-pointer transition-colors">Berikutnya</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: ICEBREAKERS -->
+        <section id="content-icebreaker" class="tab-content hidden space-y-6 animate-fade">
+            <div class="bg-white border border-rose-100 rounded-2xl p-6 shadow-xs space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i data-lucide="flame" class="w-5 h-5 text-rose-500"></i> Pustaka Permainan Icebreaker Seru
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1">Gunakan salah satu dari permainan di bawah ini untuk mencairkan suasana beku di kelas, melatih konsentrasi, dan menyelipkan nilai-nilai moral penuh empati.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4.5 border border-pink-100 hover:border-pink-300 rounded-xl space-y-3 cursor-pointer bg-rose-50/10 hover:shadow-xs transition-all">
+                        <span class="inline-block px-2 py-0.5 bg-rose-50 text-rose-700 text-[10px] font-extrabold rounded uppercase tracking-wider">Meningkatkan Fokus & Refleks</span>
+                        <h4 class="font-bold text-sm text-slate-800">Permainan "Gempa & Pohon Roboh"</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Siswa berpasangan memegang tangan bagaikan pohon. Saat guru berteriak "Angin!", pohon bergoyang. Saat "Gempa!", siswa harus berganti pasangan dengan cepat tanpa bertabrakan.</p>
+                        <hr class="border-rose-100/50">
+                        <p class="text-[10px] text-rose-750 font-bold flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 text-rose-500"></i> Nilai Moral: Kesigapan beradaptasi, gotong royong, dan kepasrahan positif.</p>
+                    </div>
+
+                    <div class="p-4.5 border border-pink-100 hover:border-pink-300 rounded-xl space-y-3 cursor-pointer bg-rose-50/10 hover:shadow-xs transition-all">
+                        <span class="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-extrabold rounded uppercase tracking-wider">Komunikasi Kelompok & Empati</span>
+                        <h4 class="font-bold text-sm text-slate-800">Permainan "Oper Gosip Berantai"</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Siswa berbaris memanjang. Siswa paling ujung menerima satu kalimat penuh pesan asertif tentang toleransi, lalu membisikkannya ke teman depannya sampai akhir.</p>
+                        <hr class="border-rose-100/50">
+                        <p class="text-[10px] text-blue-700 font-bold flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 text-blue-500"></i> Nilai Moral: Pentingnya verifikasi kebenaran informasi sebelum disebarluaskan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: ASESMEN & SIMULASI -->
+        <section id="content-asesmen" class="tab-content hidden space-y-6 animate-fade">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                <!-- Instrument settings -->
+                <div class="lg:col-span-2 bg-white rounded-xl border border-rose-100 p-5 space-y-4 shadow-xs text-xs">
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1"><i data-lucide="clipboard" class="w-4 h-4 text-rose-500"></i> Konfigurasi Evaluasi Hasil</h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Simulasikan instrumen penilaian layanan di tempat bimbingan.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Judul Lembar Angket</label>
+                            <input id="eval-judul" type="text" value="Angket Evaluasi Layanan Manajemen Hubungan Sebaya" class="w-full p-2 border border-slate-200 rounded focus:ring-1 focus:ring-rose-455 focus:outline-none">
+                        </div>
+
+                        <div class="space-y-2">
+                            <span class="block font-bold text-slate-700">Daftar Pertanyaan Angket (Likert 1-4)</span>
+                            <div class="p-3 bg-rose-50/20 border border-slate-100 rounded space-y-2.5">
+                                <div class="space-y-1">
+                                    <p class="font-semibold text-slate-800">Pernyataan 1: Keasertifan Pemuda</p>
+                                    <p class="text-[10px] text-slate-500">"Saya berani menyampaikan perbedaan pendapat tanpa menumpahkan teriakan marah."</p>
+                                </div>
+                                <div class="space-y-1 pt-1.5 border-t border-slate-100">
+                                    <p class="font-semibold text-slate-800">Pernyataan 2: Penolakan Halus</p>
+                                    <p class="text-[10px] text-slate-500">"Kini saya mengerti cara menepis ajakan buruk teman tanpa menyinggung perasaan."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Result panel -->
+                <div class="lg:col-span-3 bg-white rounded-xl border border-rose-100 p-5 space-y-4 shadow-xs">
+                    <div class="flex justify-between items-center text-xs">
+                        <h4 class="font-bold text-slate-800"><i data-lucide="bar-chart" class="w-4 h-4 text-rose-500 inline-block mr-1"></i> Simulator Uji Kohort Mandiri</h4>
+                        <span class="px-2 py-0.5 bg-rose-100 text-rose-800 rounded text-[9px] font-extrabold uppercase">Interaktif</span>
+                    </div>
+
+                    <!-- Interactive Slider scoring -->
+                    <div class="border border-rose-150 p-4 rounded-xl bg-rose-50/10 space-y-4 text-xs">
+                        <p class="text-slate-500 leading-relaxed">Geser slider di bawah ini untuk mensimulasikan persentase siswa yang merespons angket di atas untuk melihat kategorisasi tindak lanjut program BK bimbingan otomatis:</p>
+                        
+                        <div class="space-y-2">
+                            <div class="flex justify-between font-bold text-slate-800">
+                                <span>Skor Agregat Kepuasan Siswa (%)</span>
+                                <span id="sim-percentage-val" class="text-rose-650 text-sm">78%</span>
+                            </div>
+                            <input oninput="updateSurveySimulator(this.value)" type="range" min="10" max="100" value="78" class="w-full accent-rose-500 cursor-pointer">
+                        </div>
+
+                        <!-- Automated response categorisation text -->
+                        <div class="p-4 rounded-lg bg-white border border-rose-100 space-y-1.5">
+                            <span class="font-bold text-[11px] uppercase tracking-wider text-slate-500 font-display">Tingkat Pencapaian Layanan</span>
+                            <p id="sim-status-title" class="font-bold text-sm text-slate-800 flex items-center gap-1">
+                                <i data-lucide="award" class="w-4 h-4 text-rose-500"></i> LAYANAN BERJALAN BAIK & EFEKTIF
+                            </p>
+                            <p id="sim-status-desc" class="text-xs text-slate-500 leading-relaxed">Tingkat pemahaman siswa tergolong sehat. Guru bimbingan psikologis disarankan melakukan follow-up pendampingan bimbingan kelompok kecil bagi siswa tertentu yang masih menunjukkan tingkat kecemasan sosial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-rose-100/75 py-6 text-xs text-slate-400 no-print mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-center md:text-left space-y-0.5">
+                <p class="font-extrabold text-slate-700">BK Klasikal Workspace Offline © 2026</p>
+                <p class="text-[10px] text-slate-400">Dirancang khusus untuk membantu administrasi bimbingan klasikal seantero nusantara secara praktis.</p>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-slate-500 font-bold bg-slate-50 px-3 py-1 rounded-full border border-slate-200">
+                <span>Diberdayakan oleh</span>
+                <span class="text-rose-600 flex items-center gap-0.5">
+                    Antigravity Engine & Gemini <i data-lucide="heart" class="w-3 h-3 text-red-500 fill-current"></i>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Global State Variables
+        let currentTab = 'dashboard';
+        const defaultTemplates = [
+            { id: '1', name: 'Standar SMP Ganjil', sekolah: 'SMP Negeri 1 Jakarta', kelas: 'Kelas VIII', semester: '1 (Ganjil)', bidang: 'Sosial', waktu: '1 JP (40 Menit)', topik: 'Komunikasi Asertif Sehat Tanpa Bullying', metode: 'Diskusi Kelompok Kelompok', media: 'Slide Laptop' },
+            { id: '2', name: 'Target BK Karir SMA', sekolah: 'SMA Negeri 2 Bandung', kelas: 'Kelas XII', semester: '2 (Genap)', bidang: 'Karir', waktu: '2 JP (80 Menit)', topik: 'Peta Menjelajah Karir Masa Depan', metode: 'Eksplorasi Profil Minat', media: 'Tes Kepribadian Kertas' }
+        ];
+
+        // Slide State
+        let currentSlide = 0;
+        const slides = [
+            {
+                title: "Pengantar Hubungan Interpersonal Berempati",
+                desc: "Membangun harmoni di lingkungan belajar merupakan bekal penting perkembangan remaja. Hubungan asertif mendukung terciptanya keterbukaan pikiran tanpa mengorbankan martabat satu sama lain."
+            },
+            {
+                title: "Prinsip Asertivitas (Asertif vs Pasif vs Agresif)",
+                desc: "1. Pasif: Mengorbankan kebutuhan diri demi menyenangkan orang lain.\n2. Agresif: Menyerang hak orang lain guna meluapkan emosi.\n3. Asertif: Menyampaikan kejujuran perasaan secara sopan, teguh, dan solutif."
+            },
+            {
+                title: "Tindakan Konkrit di Lingkungan Sekolah",
+                desc: "Latih teknik berbicara 'Pesanku' (I-Message). Contoh: 'Saya merasa tidak nyaman karena...' alih-alih menyerang 'Kamu selalu merusak pertemanan ini...'. Melatih empati kelompok secara berkesinambungan."
+            }
+        ];
+
+        // Document Bootstrap
+        window.addEventListener('DOMContentLoaded', () => {
+            // Render default Lucide icons
+            lucide.createIcons();
+
+            // Setup local templates
+            if (!localStorage.getItem('offline_bk_templates')) {
+                localStorage.setItem('offline_bk_templates', JSON.stringify(defaultTemplates));
+            }
+            renderTemplateBadges();
+
+            // Pull first default template to fields
+            applyTemplate(defaultTemplates[0]);
+        });
+
+        // Tab Switching Mechanism
+        function switchTab(tabId) {
+            currentTab = tabId;
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(element => {
+                element.classList.add('hidden');
+            });
+            // Show target tab
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+
+            // Reset tab styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer hover:bg-slate-50 text-slate-650 font-semibold";
+            });
+            // Highlight selected tab with rose theme active styling
+            document.getElementById(`tab-${tabId}`).className = "tab-btn px-4 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer bg-rose-50 text-rose-700 font-extrabold";
+        }
+
+        // Apply pre-written quick topic standard
+        function applyQuickTopic(topic, bidang, deskripsi, tujuan) {
+            document.getElementById('rpl-topik').value = topic;
+            document.getElementById('rpl-bidang').value = bidang;
+            document.getElementById('view-eval-hasil').innerText = `Menggunakan kuesioner diagnosis mandiri untuk asertivitas guna mengevaluasi pemahaman siswa mengenai topik: "${topic}".`;
+            
+            // Build dynamic tujuan khusus based on topic selected
+            const customTujuan = [
+                `Siswa memahami hakikat penting mengenai: ${topic}.`,
+                `Siswa mampu mendiagnosis bias perilaku bertema ${topic} di kelas.`,
+                `Siswa merefleksikan resolusi aksi harian guna mendorong perbaikan sosial.`
+            ];
+            
+            const ulTujuan = document.getElementById('view-tujuan-khusus');
+            ulTujuan.innerHTML = '';
+            customTujuan.forEach(t => {
+                const li = document.createElement('li');
+                li.innerText = t;
+                ulTujuan.appendChild(li);
+            });
+
+            // Trigger RPL tab visualization
+            switchTab('rpl');
+            compileRplDoc();
+        }
+
+        // Render template list elements
+        function renderTemplateBadges() {
+            const container = document.getElementById('template-list-container');
+            container.innerHTML = '';
+            const tpls = JSON.parse(localStorage.getItem('offline_bk_templates')) || [];
+
+            tpls.forEach(tpl => {
+                const badge = document.createElement('div');
+                badge.className = "group px-2.5 py-1 bg-white border border-rose-100 rounded text-[10px] font-semibold cursor-pointer text-slate-600 hover:bg-rose-50 flex items-center gap-1";
+                badge.onclick = () => applyTemplate(tpl);
+                badge.innerHTML = `
+                    <i data-lucide="layout-template" class="w-2.5 h-2.5 text-rose-500"></i>
+                    <span>${tpl.name}</span>
+                    <span onclick="deleteTemplate('${tpl.id}', event)" class="hover:text-red-600 pl-1 text-[8px] font-extrabold text-slate-350">✕</span>
+                `;
+                container.appendChild(badge);
+            });
+            lucide.createIcons();
+        }
+
+        function applyTemplate(tpl) {
+            document.getElementById('rpl-sekolah').value = tpl.sekolah;
+            document.getElementById('rpl-kelas').value = tpl.kelas;
+            document.getElementById('rpl-semester').value = tpl.semester;
+            document.getElementById('rpl-bidang').value = tpl.bidang;
+            document.getElementById('rpl-waktu').value = tpl.waktu;
+            document.getElementById('rpl-topik').value = tpl.topik;
+            document.getElementById('rpl-metode').value = tpl.metode;
+            document.getElementById('rpl-media').value = tpl.media;
+            compileRplDoc();
+        }
+
+        function saveActiveFormAsTemplate() {
+            const name = document.getElementById('input-tpl-name').value.trim();
+            if(!name) {
+                alert('Silakan tulis nama singkatan terlebih dahulu!');
+                return;
+            }
+
+            const newTpl = {
+                id: Date.now().toString(),
+                name: name,
+                sekolah: document.getElementById('rpl-sekolah').value,
+                kelas: document.getElementById('rpl-kelas').value,
+                semester: document.getElementById('rpl-semester').value,
+                bidang: document.getElementById('rpl-bidang').value,
+                waktu: document.getElementById('rpl-waktu').value,
+                topik: document.getElementById('rpl-topik').value,
+                metode: document.getElementById('rpl-metode').value,
+                media: document.getElementById('rpl-media').value
+            };
+
+            const list = JSON.parse(localStorage.getItem('offline_bk_templates')) || [];
+            list.push(newTpl);
+            localStorage.setItem('offline_bk_templates', JSON.stringify(list));
+            document.getElementById('input-tpl-name').value = '';
+            renderTemplateBadges();
+            alert('Template berhasil tersimpan ke penyimpanan browser lokal Anda!');
+        }
+
+        function deleteTemplate(id, event) {
+            event.stopPropagation();
+            let list = JSON.parse(localStorage.getItem('offline_bk_templates')) || [];
+            list = list.filter(item => item.id !== id);
+            localStorage.setItem('offline_bk_templates', JSON.stringify(list));
+            renderTemplateBadges();
+        }
+
+        // Compiling Form into Paper render element
+        function compileRplDoc() {
+            const sekolah = document.getElementById('rpl-sekolah').value || "SMP Negeri 1 Jakarta";
+            const kelas = document.getElementById('rpl-kelas').value || "Kelas VIII";
+            const sem = document.getElementById('rpl-semester').value || "Ganjil";
+            const bidang = document.getElementById('rpl-bidang').value;
+            const waktu = document.getElementById('rpl-waktu').value || "1 JP (40 Menit)";
+            const topik = document.getElementById('rpl-topik').value || "Pentingnya Menjaga Tata Krama Hubungan Sebaya";
+            const metode = document.getElementById('rpl-metode').value || "Diskusi Kelompok & Curah Pendapat";
+            const media = document.getElementById('rpl-media').value || "Papan tulis & LCD presentasi";
+
+            document.getElementById('view-header-sekolah').innerText = sekolah;
+            document.getElementById('view-sekolah').innerText = sekolah;
+            document.getElementById('view-kelas-sem').innerText = `${kelas} / ${sem}`;
+            document.getElementById('view-bidang').innerText = bidang;
+            document.getElementById('view-waktu').innerText = waktu;
+            document.getElementById('view-topik').innerText = topik;
+            document.getElementById('view-metode').innerText = metode;
+            document.getElementById('view-media').innerText = media;
+
+            // Generate customized dynamic tujuan umum
+            document.getElementById('view-tujuan-umum').innerText = `Siswa memahami esensi dan menyerap prinsip asertivitas guna memberdayakan perilaku yang menyokong terciptanya kepedulian bertema "${topik}" secara kondusif di lingkaran sekolah.`;
+        }
+
+        // Slide presentation navigations
+        function changeSlide(idx) {
+            currentSlide = idx;
+            document.getElementById('slide-title').innerText = slides[idx].title;
+            document.getElementById('slide-desc').innerText = slides[idx].desc;
+            document.getElementById('slide-num').innerText = `Halaman ${idx + 1} / 3`;
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                changeSlide(currentSlide - 1);
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                changeSlide(currentSlide + 1);
+            }
+        }
+
+        // Interactive Assessment Survey Simulator
+        function updateSurveySimulator(val) {
+            document.getElementById('sim-percentage-val').innerText = `${val}%`;
+            
+            const titleEl = document.getElementById('sim-status-title');
+            const descEl = document.getElementById('sim-status-desc');
+
+            if (val >= 85) {
+                titleEl.className = "font-bold text-sm text-emerald-600 flex items-center gap-1";
+                titleEl.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-emerald-500"></i> LAYANAN SANGAT BERHASIL & MAKSIMAL`;
+                descEl.innerText = "Siswa menunjukkan kesepahaman yang luar biasa terhadap layanan klasikal BK! Program kerja dapat langsung dilanjutkan ke tema krusial berikutnya tanpa perlu remedial.";
+            } else if (val >= 70) {
+                titleEl.className = "font-bold text-sm text-rose-500 flex items-center gap-1";
+                titleEl.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-rose-450"></i> LAYANAN BERJALAN BAIK & EFEKTIF`;
+                descEl.innerText = "Tingkat pemahaman siswa tergolong sehat. Guru bimbingan psikologis disarankan melakukan follow-up pendampingan bimbingan kelompok kecil bagi siswa tertentu yang masih menunjukkan keraguan.";
+            } else {
+                titleEl.className = "font-bold text-sm text-amber-600 flex items-center gap-1";
+                titleEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-500"></i> PROGRAM MEMBUTUHKAN PERBAIKAN / CONTEXT RE-LOOP`;
+                descEl.innerText = "Sebagian besar siswa masih kesulitan menyerap esensi materi. Direkomendasikan melakukan re-intervensi bimbingan klasikal dengan memodifikasi alat peraga/metode permainan interaktif baru.";
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

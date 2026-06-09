@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Individual validators
+    function isValidRpl(data, userId) {
+      return data.userId == userId
+         && data.sekolah is string && data.sekolah.size() <= 200
+         && data.kelas is string && data.kelas.size() <= 50
+         && data.semester is string && data.semester.size() <= 50
+         && data.bidangLayanan is string && data.bidangLayanan.size() <= 100
+         && data.topikTema is string && data.topikTema.size() <= 500
+         && data.createdAt is string && data.createdAt.size() <= 100;
+    }
+
+    function isValidIcebreaker(data, userId) {
+      return data.userId == userId
+         && data.topikTema is string && data.topikTema.size() <= 500
+         && data.namaGame is string && data.namaGame.size() <= 200
+         && data.createdAt is string && data.createdAt.size() <= 100;
+    }
+
+    function isValidMateri(data, userId) {
+      return data.userId == userId
+         && data.topikTema is string && data.topikTema.size() <= 500
+         && data.judulMateri is string && data.judulMateri.size() <= 200
+         && data.createdAt is string && data.createdAt.size() <= 100;
+    }
+
+    function isValidAsesmen(data, userId) {
+      return data.userId == userId
+         && data.topikTema is string && data.topikTema.size() <= 500
+         && data.judulAsesmen is string && data.judulAsesmen.size() <= 200
+         && data.createdAt is string && data.createdAt.size() <= 100;
+    }
+
+    // User-scoped collections
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // RPL Collection
+      match /rpl/{rplId} {
+        allow read, delete: if isOwner(userId);
+        allow create, update: if isOwner(userId) 
+          && isValidId(rplId) 
+          && isValidRpl(request.resource.data, userId);
+      }
+
+      // Icebreakers Collection
+      match /icebreakers/{icebreakerId} {
+        allow read, delete: if isOwner(userId);
+        allow create, update: if isOwner(userId) 
+          && isValidId(icebreakerId)
+          && isValidIcebreaker(request.resource.data, userId);
+      }
+
+      // Materi Collection
+      match /materi/{materiId} {
+        allow read, delete: if isOwner(userId);
+        allow create, update: if isOwner(userId) 
+          && isValidId(materiId)
+          && isValidMateri(request.resource.data, userId);
+      }
+
+      // Asesmen Collection
+      match /asesmen/{asesmenId} {
+        allow read, delete: if isOwner(userId);
+        allow create, update: if isOwner(userId) 
+          && isValidId(asesmenId)
+          && isValidAsesmen(request.resource.data, userId);
+      }
+    }
+  }
+}

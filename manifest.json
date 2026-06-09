@@ -1,0 +1,30 @@
+{
+  "name": "BK Klasikal Workspace",
+  "short_name": "BK Klasikal",
+  "description": "Platform digital bimbingan dan konseling (BK) klasikal untuk merancang RPL (Rencana Pelaksanaan Layanan), materi interaktif, icebreaker, dan asesmen.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff1f2",
+  "theme_color": "#f43f5e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

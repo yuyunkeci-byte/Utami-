@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "Rpl": {
+      "title": "Rencana Pelaksanaan Layanan",
+      "description": "Rencana pembelajaran layanan bimbingan klasikal BK",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "sekolah": { "type": "string" },
+        "kelas": { "type": "string" },
+        "semester": { "type": "string" },
+        "bidangLayanan": { "type": "string" },
+        "topikTema": { "type": "string" },
+        "alokasiWaktu": { "type": "string" },
+        "metodeLayanan": { "type": "string" },
+        "mediaAlat": { "type": "string" },
+        "tujuanUmum": { "type": "string" },
+        "tujuanKhusus": { "type": "array" },
+        "kegiatanPendahuluan": { "type": "array" },
+        "kegiatanInti": { "type": "array" },
+        "kegiatanPenutup": { "type": "array" },
+        "evaluasiProses": { "type": "array" },
+        "evaluasiHasil": { "type": "array" },
+        "sumberBahan": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "sekolah", "kelas", "semester", "bidangLayanan", "topikTema", "createdAt"]
+    },
+    "Icebreaker": {
+      "title": "Icebreaker",
+      "description": "Panduan permainan icebreaker untuk bimbingan klasikal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "topikTema": { "type": "string" },
+        "namaGame": { "type": "string" },
+        "estimasiWaktu": { "type": "string" },
+        "alatBahan": { "type": "array" },
+        "caraBermain": { "type": "array" },
+        "maknaRefleksi": { "type": "string" },
+        "pertanyaanDebriefing": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "topikTema", "namaGame", "createdAt"]
+    },
+    "Materi": {
+      "title": "Materi Bimbingan",
+      "description": "Bahan materi edukatif bimbingan klasikal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "topikTema": { "type": "string" },
+        "judulMateri": { "type": "string" },
+        "pengantar": { "type": "string" },
+        "poinMateri": { "type": "array" },
+        "studiKasusInteraktif": { "type": "object" },
+        "kesimulan": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "topikTema", "judulMateri", "createdAt"]
+    },
+    "Asesmen": {
+      "title": "Asesmen & Angket BK",
+      "description": "Lembar kuesioner evaluasi bimbingan klasikal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "topikTema": { "type": "string" },
+        "judulAsesmen": { "type": "string" },
+        "petunjukPengisian": { "type": "string" },
+        "pertanyaanSkala": { "type": "array" },
+        "pertanyaanTerbukaReflektif": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "topikTema", "judulAsesmen", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}/rpl/{rplId}": {
+      "schema": "Rpl",
+      "description": "Daftar rencana pelaksanaan layanan milik pengguna"
+    },
+    "users/{userId}/icebreakers/{icebreakerId}": {
+      "schema": "Icebreaker",
+      "description": "Daftar icebreaker milik pengguna"
+    },
+    "users/{userId}/materi/{materiId}": {
+      "schema": "Materi",
+      "description": "Daftar materi bimbingan milik pengguna"
+    },
+    "users/{userId}/asesmen/{asesmenId}": {
+      "schema": "Asesmen",
+      "description": "Daftar instrumen asesmen kuesioner milik pengguna"
+    }
+  }
+}

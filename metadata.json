@@ -1,0 +1,6 @@
+{
+  "name": "BK Klasikal Workspace",
+  "description": "Platform digital bimbingan dan konseling (BK) klasikal untuk merancang RPL (Rencana Pelaksanaan Layanan), materi interaktif, icebreaker, dan asesmen bimbingan bagi guru BK.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
